@@ -1,4 +1,4 @@
-module github.com/sushanpth/try-gin
+module github.com/sushanpth/learn-go/try-gin
 
 go 1.20
 
