@@ -19,6 +19,15 @@ func SetupRoutes(db *gorm.DB) *gin.Engine {
 	r.POST("/tasks", controllers.CreateTask)
 	r.GET("/tasks/:id", controllers.FindTask)
 	r.PATCH("/tasks/:id", controllers.UpdateTask)
-	r.DELETE("/tasks/:id", controllers.DeleteTask)
+
+	// protect delete route
+	accounts := gin.Accounts{
+		"foo":    "bar",
+		"austin": "1234",
+		"lena":   "hello2",
+		"manu":   "4321",
+	}
+
+	r.DELETE("/tasks/:id", gin.BasicAuth(accounts), controllers.DeleteTask)
 	return r
 }
