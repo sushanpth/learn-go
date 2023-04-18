@@ -2,6 +2,7 @@ go 1.20
 
 use (
 	./di-fx-1
+	./di-fx-modular
 	./go-jwt
 	./task-crud
 	./try-gin
