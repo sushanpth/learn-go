@@ -16,3 +16,6 @@
 .DS_Store
 .env
 tmp/
+
+# firebase key file
+task-firebase/firebase.json
