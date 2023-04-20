@@ -6,5 +6,6 @@ use (
 	./go-jwt
 	./task-crud
 	./task-firebase
+	./task-firebase-clean
 	./try-gin
 )

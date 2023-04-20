@@ -19,3 +19,4 @@ tmp/
 
 # firebase key file
 task-firebase/firebase.json
+task-firebase-clean/firebase.json
