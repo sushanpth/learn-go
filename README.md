@@ -9,3 +9,6 @@
 ](https://www.youtube.com/watch?v=ma7rUS_vW9M)
 - Medium Article [Dependency Injection with Go-Fx
 ](https://articles.wesionary.team/dependency-injection-with-go-fx-b698a6585cf0)
+
+- Youtube Video [Golang / Go Crash Course 02 | Connecting our REST API with Firebase Firestore Database
+](https://www.youtube.com/watch?v=RHa4D6aNVpg&list=PL3eAkoh7fypqUQUQPn-bXtfiYT_ZSVKmB&index=3)
