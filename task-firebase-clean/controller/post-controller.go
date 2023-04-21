@@ -9,15 +9,21 @@ import (
 )
 
 var (
-	postService service.PostService = service.NewPostService()
+	postService service.PostService
 )
 
+type controller struct{}
 type PostController interface {
 	GetPosts(ctx *gin.Context)
 	SavePosts(ctx *gin.Context)
 }
 
-func GetPosts(ctx *gin.Context) {
+func NewPostController(service service.PostService) PostController {
+	postService = service
+	return &controller{}
+}
+
+func (*controller) GetPosts(ctx *gin.Context) {
 	posts, err := postService.FindAll()
 
 	if err != nil {
@@ -28,7 +34,7 @@ func GetPosts(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"data": posts})
 }
 
-func SavePost(ctx *gin.Context) {
+func (*controller) SavePosts(ctx *gin.Context) {
 	var post entity.Post
 	err := ctx.ShouldBindJSON(&post)
 	if err != nil {
