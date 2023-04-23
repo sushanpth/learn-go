@@ -1,5 +1,59 @@
 # GO Language practice projects 
+My go learning practice projects
 
+# Folder Structure
+```
+Learn Go/
+├── di-fx-1/
+├── di-fx-modular/
+│   ├── bundlefx/   
+│   ├── handler/  
+│   ├── health/
+│   ├── main.go
+│   ├── go.mod   
+│   └── go.sum
+├── go-jwt/
+│   ├── controllers/
+│   ├── initializers/
+│   ├── middleware/
+│   ├── models/
+│   ├── main.go
+│   ├── go.mod
+│   └── go.sum
+├── go-tour
+├── simple-http-server/
+├── task-crud/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── main.go
+│   ├── env-sample
+│   ├── index.html
+│   ├── go.mod    
+│   └── go.sum
+├── task-firebase/
+│   ├── entity/
+│   ├── initializers/
+│   ├── repository/
+│   ├── routes/
+│   ├── main.go
+│   ├── go.sum
+│   └── go.mod
+├── task-firebase-clean/
+│   ├── controller/
+│   ├── entity/
+│   ├── initializers/
+│   ├── service/
+│   ├── repository/
+│   ├── router/
+│   ├── main.go
+│   ├── go.mod
+│   └── go.sum
+├── try-gin/
+├── go.work
+├── go.work.sum
+└── README.md
+```
 ### Refrence Links
 - Medium Article [JWT authentication In Golang with gin](https://articles.wesionary.team/jwt-authentication-in-golang-with-gin-63dbc0816d55)
 - Medium Article [CRUD API using GO, GIN, MySql](https://articles.wesionary.team/crud-api-using-go-d55b0ace211e)
