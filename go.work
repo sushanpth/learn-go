@@ -4,6 +4,7 @@ use (
 	./di-fx-1
 	./di-fx-modular
 	./go-jwt
+	./go-routine-channel
 	./task-crud
 	./task-firebase
 	./task-firebase-clean
