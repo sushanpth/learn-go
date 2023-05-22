@@ -5,6 +5,7 @@ use (
 	./di-fx-modular
 	./go-jwt
 	./go-routine-channel
+	./redis-elastic-cache
 	./task-crud
 	./task-firebase
 	./task-firebase-clean
