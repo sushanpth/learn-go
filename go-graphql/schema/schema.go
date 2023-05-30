@@ -115,15 +115,22 @@ var rootMutation = graphql.NewObject(graphql.ObjectConfig{
 				},
 			},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+
 				name, _ := p.Args["name"].(string)
 				description, _ := p.Args["description"].(string)
-				otherNames, _ := p.Args["otherNames"].([]string)
+				otherNamesInterface, _ := p.Args["otherNames"].([]interface{}) // []string did not work
 				imageUrl, _ := p.Args["imageUrl"].(string)
 
 				newID := currentMaxId + 1
 				currentMaxId++
 
-				// fmt.Println(otherNames, "OTHER")
+				// convert interface list to string list
+				otherNames := make([]string, len(otherNamesInterface))
+				for i := range otherNamesInterface {
+					otherNames[i] = otherNamesInterface[i].(string)
+				}
+
+				// fmt.Println(p.Args, "OTHER", otherNames)
 
 				newBeast := Beast{
 					ID:          newID,
@@ -139,6 +146,52 @@ var rootMutation = graphql.NewObject(graphql.ObjectConfig{
 
 				return newBeast, nil
 
+			},
+		},
+		"updateBeast": &graphql.Field{
+			Type:        beastType, // the return type for this field
+			Description: "Update existing beast",
+			Args: graphql.FieldConfigArgument{
+				"name": &graphql.ArgumentConfig{
+					Type: graphql.String,
+				},
+				"description": &graphql.ArgumentConfig{
+					Type: graphql.String,
+				},
+				"id": &graphql.ArgumentConfig{Type: graphql.NewNonNull(graphql.Int)},
+				"otherNames": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"imageUrl": &graphql.ArgumentConfig{
+					Type: graphql.String,
+				},
+			},
+			Resolve: func(params graphql.ResolveParams) (interface{}, error) {
+				id, _ := params.Args["id"].(int)
+				affectedBeast := Beast{}
+
+				// Search list for beast with id
+				for i := 0; i < len(BeastList); i++ {
+					if BeastList[i].ID == id {
+						if _, ok := params.Args["description"]; ok {
+							BeastList[i].Description = params.Args["description"].(string)
+						}
+						if _, ok := params.Args["name"]; ok {
+							BeastList[i].Name = params.Args["name"].(string)
+						}
+						if _, ok := params.Args["imageUrl"]; ok {
+							BeastList[i].ImageURL = params.Args["imageUrl"].(string)
+						}
+						if _, ok := params.Args["otherNames"]; ok {
+							BeastList[i].OtherNames = params.Args["otherNames"].([]string)
+						}
+						// Assign updated beast so we can return it
+						affectedBeast = BeastList[i]
+						break
+					}
+				}
+				// Return affected beast
+				return affectedBeast, nil
 			},
 		},
 	},
