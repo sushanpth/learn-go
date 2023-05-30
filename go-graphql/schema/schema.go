@@ -91,7 +91,61 @@ var rootQuery = graphql.NewObject(graphql.ObjectConfig{
 	},
 })
 
+var currentMaxId = 5
+
+// root mutation
+var rootMutation = graphql.NewObject(graphql.ObjectConfig{
+	Name: "RootMutation",
+	Fields: graphql.Fields{
+		"addBeast": &graphql.Field{
+			Type:        beastType,
+			Description: "Add a new beast",
+			Args: graphql.FieldConfigArgument{
+				"name": &graphql.ArgumentConfig{
+					Type: graphql.NewNonNull(graphql.String),
+				},
+				"description": &graphql.ArgumentConfig{
+					Type: graphql.NewNonNull(graphql.String),
+				},
+				"otherNames": &graphql.ArgumentConfig{
+					Type: graphql.NewList(graphql.String),
+				},
+				"imageUrl": &graphql.ArgumentConfig{
+					Type: graphql.String,
+				},
+			},
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				name, _ := p.Args["name"].(string)
+				description, _ := p.Args["description"].(string)
+				otherNames, _ := p.Args["otherNames"].([]string)
+				imageUrl, _ := p.Args["imageUrl"].(string)
+
+				newID := currentMaxId + 1
+				currentMaxId++
+
+				// fmt.Println(otherNames, "OTHER")
+
+				newBeast := Beast{
+					ID:          newID,
+					Name:        name,
+					Description: description,
+					OtherNames:  otherNames,
+					ImageURL:    imageUrl,
+				}
+
+				// fmt.Println(newBeast)
+
+				BeastList = append(BeastList, newBeast)
+
+				return newBeast, nil
+
+			},
+		},
+	},
+})
+
 // define schema, with our rootQuery
 var BeastSchema, _ = graphql.NewSchema(graphql.SchemaConfig{
-	Query: rootQuery,
+	Query:    rootQuery,
+	Mutation: rootMutation,
 })
